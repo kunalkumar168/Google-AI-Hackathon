@@ -1,21 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Generation</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Text Generation</h1>
-        <form action="/generate" method="POST" enctype="multipart/form-data">
-            <label for="prompt">Enter Prompt:</label><br>
-            <input type="text" id="prompt" name="prompt"><br>
-            <label for="image">Upload Image:</label><br>
-            <input type="file" id="image" name="image"><br><br>
-            <input type="submit" value="Generate">
-        </form>
+{% extends "core/base_minimal.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block main_content %}
+    <div class="container-fluid flex-grow-1">
+        <div class="row h-100">
+            <!-- Right panel -->
+            <div class="col-md-6 order-md-2 d-flex flex-column justify-content-center align-items-center bg-primary text-light text-left" style="min-height: 100vh; height: 100%;">
+                <h1 class="fw-bold display-4">Google AI Hackathon</h1>
+                <div class="lead fs-3 font-monospace mt-4 col-8">
+                    <p>Created an Image Question-Answer app using Gemini Multimodal API. The user can upload an image and provide their query as a prmpt. Additionally, the user can also use the Machine Translation feature to translate the result in their desired language.</p>
+                </div>
+                <!-- Footer-->
+                <div class="align-self-end w-100">
+                    {% include 'core/footer.html' %}
+                </div>
+            </div>
+
+            <!-- Left panel - Login Form -->
+            <div class="col-md-6 order-md-1 d-flex flex-column justify-content-center align-items-center p-4" style="min-height: 100vh; height: 100%;">
+                <h2 class="text-center display-3 fw-bold pb-3">Image QA</h2>
+                {% if message %}
+                <p class="text-danger">{{ message }}</p>
+                {% endif %}
+                <form action="{{ url_for('generate') }}" method="post" enctype="multipart/form-data">
+                    <!-- Prompt Input -->
+                    <div class="mb-3">
+                        <label for="prompt" class="form-label">Prompt:</label>
+                        <textarea class="form-control" id="prompt" name="prompt" rows="3"></textarea>
+                    </div>
+                    <!-- Image Upload -->
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Upload Image:</label>
+                        <input class="form-control" type="file" id="image" name="image">
+                    </div>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                <p class="text-muted pt-4 text-center">Please upload an image and provide a prompt.</p>
+                <!-- {% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }}
+                {% endif %} -->
+                {% if error %}
+                    <!-- Display the error using a popup box -->
+                    <div class="error-popup" style="font-size: 22px;">
+                        <strong>Error:</strong> {{ error }}
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Show the error-popup div after a delay
+                            var errorPopup = document.querySelector('.error-popup');
+                            if (errorPopup) {
+                                setTimeout(function () {
+                                    errorPopup.style.display = 'none';
+                                }, 5000); // Adjust the delay in milliseconds (e.g., 5000 for 5 seconds)
+                            }
+                        });
+                    </script>
+                {% endif %}
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated Text</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+{% extends "core/base.html" %}
+
+{% block title %}Result{% endblock %}
+
+{% block content %}
     <div class="container">
-        <h1>Result</h1>
-        <p class="generated-text">{{ generated_text }}</p>
-        <img src="{{ image_path }}" alt="Uploaded Image" class="uploaded-image">
-        <form action="/" method="GET">
-            <input type="submit" value="Query New">
-        </form>
+        <div>
+            <h1 class="display-4 fw-bold">GenAI Output :</h1>
+        </div>
+        <!-- Display Text Result -->
+        <div class="mb-3">
+            <h4>Text:</h4>
+            <p>{{ generated_text }}</p>
+        </div>
+        <!-- Display Uploaded Image -->
+        <div class="mb-3">
+            <h4>Uploaded Image:</h4>
+            <img src="{{ image_path }}" class="img-fluid" alt="Uploaded Image">
+        </div>
+        <!-- Submit Button -->
+        <a href="/" class="btn btn-primary">New Query</a>
     </div>
-</body>
-</html>
+{% endblock %}

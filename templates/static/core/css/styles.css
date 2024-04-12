@@ -1,0 +1,188 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Make sure the body takes up at least the full viewport height */
+    margin: 0;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa; /* Set your desired background color */
+    text-align: center;
+    padding: 15x;
+    margin-top: auto;
+}
+
+.content-container {
+    flex: 1; /* Allow the content to grow and push the footer down */
+}
+
+a.grey-link {
+    color: grey; /* Set the text color to grey */
+    text-decoration: underline; /* Add an underline to the link */
+    transition: color 0.3s ease;
+    margin-right: 16px;
+}
+  
+ 
+a.grey-link:hover {
+    color: #333;
+}
+
+input[type="datetime-local"] {
+    width: auto;
+}
+
+textarea {
+    width: 100%;
+}
+
+
+input[type="range"] {
+    width: 100%;
+    margin: 10px auto;
+
+}
+
+.slider-container {
+    width: 85%;
+    position: relative;
+    text-align: center;
+}
+
+.slider-ticks span {
+    position: absolute;
+    bottom: -20px; /* adjust based on your design */
+    transform: translateX(-50%);
+}
+
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+}
+
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #5e72e4;  /* Example color when the toggle is ON */
+    border-color: #5e72e4;
+}
+
+.custom-close {
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 1.5rem; /* Adjust the size if needed */
+    color: #333; /* Adjust the color if needed */
+    opacity: 0.7;
+}
+
+.custom-close:hover {
+    color: #666; /* Adjust hover color if needed */
+    opacity: 1;
+}
+
+.flash-dialog {
+    position: absolute; /* Change to fixed */
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+
+.error-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+    background-color: #666; /* Adjust the background color as needed */
+    color: #0f0404; /* Adjust the text color as needed */
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: fadeOut 3s ease-out; /* Adjust the duration as needed */
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+.patient-details-table {
+    width: 70%; /* Adjust the width as needed */
+    margin: auto;
+    background-color: #404040;
+}
+
+.patient-details-table .table tr td:first-child {
+    background-color: #404040; /* Set the background color for the first column */
+}
+
+table {
+    width: 50%;
+    border-collapse: collapse;
+    background-color: #b2e8b2;
+}
+
+td {
+    padding: 8px;
+    border: 1px solid #000; /* Border for each cell */
+}
+
+.dark-grey {
+    background-color: #404040; /* Dark grey color for the first column */
+    color: #fff; /* White text color for better visibility */
+}
+
+.light-green {
+    background-color: #b2e8b2; /* Light green color for the second column */
+}
+
+.table-container-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #555;
+}
+
+.query-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.query-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px; /* Reduce button size */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.query-button:hover {
+    background-color: #45a049;
+}

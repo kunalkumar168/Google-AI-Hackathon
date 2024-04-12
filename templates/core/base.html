@@ -1,0 +1,20 @@
+{% extends "core/base_minimal.html" %}
+
+{% block main_content %}
+    <!-- Header --> 
+    <!-- <header>
+        {% include 'core/header.html' %}
+    </header> -->
+    
+    <!-- Main Content -->
+    <div class="content-container m-1">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    
+    <!-- Footer -->
+    <div id="footer">
+        {% include 'core/footer.html' %}
+    </div>
+{% endblock %}
