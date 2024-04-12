@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated Text</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Result</h1>
+        <p class="generated-text">{{ generated_text }}</p>
+        <img src="{{ image_path }}" alt="Uploaded Image" class="uploaded-image">
+        <form action="/" method="GET">
+            <input type="submit" value="Query New">
+        </form>
+    </div>
+</body>
+</html>

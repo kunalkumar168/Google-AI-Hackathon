@@ -1,0 +1,3 @@
+```
+source gemai/bin/activate
+```
