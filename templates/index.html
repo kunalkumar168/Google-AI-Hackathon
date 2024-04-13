@@ -7,7 +7,9 @@
         <div class="row h-100">
             <!-- Right panel -->
             <div class="col-md-6 order-md-2 d-flex flex-column justify-content-center align-items-center bg-primary text-light text-left" style="min-height: 100vh; height: 100%;">
-                <h1 class="fw-bold display-4">Google AI Hackathon</h1>
+                <div class="bg-white p-1 rounded mb-1">
+                    <img src="https://storage.googleapis.com/kunal_bucket_hckthn/google_ai.png" alt="Google AI Hackathon Image" class="img-fluid mb-4">
+                </div>
                 <div class="lead fs-3 font-monospace mt-4 col-8">
                     <p>Created an Image Question-Answer app using Gemini Multimodal API. The user can upload an image and provide their query as a prmpt. Additionally, the user can also use the Machine Translation feature to translate the result in their desired language.</p>
                 </div>
@@ -19,23 +21,33 @@
 
             <!-- Left panel - Login Form -->
             <div class="col-md-6 order-md-1 d-flex flex-column justify-content-center align-items-center p-4" style="min-height: 100vh; height: 100%;">
-                <h2 class="text-center display-3 fw-bold pb-3">Image QA</h2>
+                <h2 class="text-center display-3 fw-bold pb-3" style="font-size: 2rem;">Smart Image QA App</h2>
                 {% if message %}
                 <p class="text-danger">{{ message }}</p>
                 {% endif %}
                 <form action="{{ url_for('generate') }}" method="post" enctype="multipart/form-data">
-                    <!-- Prompt Input -->
-                    <div class="mb-3">
-                        <label for="prompt" class="form-label">Prompt:</label>
-                        <textarea class="form-control" id="prompt" name="prompt" rows="3"></textarea>
+                    <div class="row mb-4">
+                        <div class="col-sm-4">
+                            <label for="prompt" class="form-label"><strong>Prompt:</strong></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" id="prompt" name="prompt" style="font-size: 18px; width: 100%;" rows="3"></textarea>
+                        </div>
                     </div>
-                    <!-- Image Upload -->
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Upload Image:</label>
-                        <input class="form-control" type="file" id="image" name="image">
+                    <div class="row mb-4">
+                        <div class="col-sm-4">
+                            <label for="image" class="form-label"><strong>Upload Image:</strong></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input class="form-control" type="file" id="image" name="image" style="padding: 10px 14px;">
+                        </div>
                     </div>
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="row mb-4">
+                        <div class="col-sm-4"></div> <!-- Placeholder column -->
+                        <div class="col-sm-8 text-sm-end">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
                 </form>
                 <p class="text-muted pt-4 text-center">Please upload an image and provide a prompt.</p>
                 <!-- {% if error %}
