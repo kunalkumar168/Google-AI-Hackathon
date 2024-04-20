@@ -9,23 +9,21 @@
             <div class="col-md-6 mb-3">
                 <h4>Text:</h4>
                 <div style="overflow-y: scroll; max-height: 400px;">
-                    <p>{{ generated_text }}</p>
+                    <p>{{ session.get('generated_text') | safe }}</p>
                 </div>
             </div>
             <!-- Image Column -->
             <div class="col-md-6 mb-3">
                 <h4>Uploaded Image:</h4>
-                <img src="{{ image_path }}" class="img-fluid" alt="Uploaded Image">
+                <img src="{{ session.get('image_path') }}" class="img-fluid" alt="Uploaded Image">
             </div>
         </div>
         <!-- Language Selection Form -->
         <div class="row">
             <div class="col-md-12 mb-3">
-                <h4>Select Language:</h4>
-                <form action="/generate" method="post"> <!-- Changed action URL -->
-                    <input type="hidden" name="generated_text" value="{{ generated_text }}"> <!-- Pass generated_text as hidden input -->
-                    <input type="hidden" name="image_path" value="{{ image_path }}"> <!-- Pass image_path as hidden input -->
-                    <select name="language" class="form-select">
+                <h4>Select Language to Translate:</h4>
+                <form action="/generate" method="get" class="d-flex">
+                    <select name="language" class="form-select" style="width: 150px;"> <!-- Adjust the width as needed -->
                         <option value="Arabic">Arabic</option>
                         <option value="Chinese">Chinese</option>
                         <option value="English">English</option>
@@ -39,7 +37,10 @@
                         <option value="Spanish">Spanish</option>
                         <!-- Add more options as needed -->
                     </select>
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    <div style="margin-left: 10px;"> <!-- Adjust the margin as needed -->
+                        <button type="submit" class="btn btn-primary mt-3" style="min-width: 80px;">Submit</button> <!-- Adjust the width as needed -->
+                        <a href="/" class="btn btn-secondary mt-3 ms-2">New Query</a>
+                    </div>
                 </form>
             </div>
         </div>

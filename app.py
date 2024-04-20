@@ -17,15 +17,12 @@ app.secret_key = os.urandom(24)
 client = storage.Client()
 
 # Initialize Vertex AI
-vertexai.init(project="fair-gradient-419306", location="us-west1")
-
-# Load Generative Model
-#model = GenerativeModel("gemini-1.0-pro-vision-001")
-#model = GenerativeModel("gemini-1.5-pro-preview-0409")
+vertexai.init(project="fair-gradient-419306", location="us-west4")
 
 class MyApp():
     def __init__(self):
         self.model = GenerativeModel("gemini-1.5-pro-preview-0409")
+        #self.model = GenerativeModel("gemini-1.0-pro-vision-001")
         self.generation_config = {
                 "max_output_tokens": 8192, # 2048 # 8192
                 "temperature": 0.9,
@@ -84,8 +81,9 @@ class MyApp():
                 self.generated_text = ""
                 for response in responses:
                     self.generated_text += response.text
-
-                return render_template('result.html', generated_text=self.generated_text, image_path=self.image_path, error=None)
+                session['generated_text'] = self.generated_text
+                session['image_path'] = self.image_path
+                return render_template('result.html', error=None)
             except Exception as e:
                 error = str(e)
                 return render_template('index.html', error=error)
@@ -94,7 +92,8 @@ class MyApp():
                 language = request.args.get('language')
                 if language:
                     self.generated_text = self.language_translation(self.generated_text, language)
-                    return render_template('result.html', generated_text=self.generated_text, image_path=self.image_path, error=None)
+                    session['generated_text'] = self.generated_text
+                    return render_template('result.html', error=None)
                 return redirect(url_for('index'))
             except Exception as e:
                 error = str(e)
@@ -112,4 +111,4 @@ def generate():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True)
