@@ -6,7 +6,7 @@ steps:
 
   # Push Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '-t', 'us-central1-docker.pkg.dev/fair-gradient-419306/gemini-app/my-app:${SHORT_SHA}']
+    args: ['push', 'us-central1-docker.pkg.dev/fair-gradient-419306/gemini-app/my-app:${SHORT_SHA}']
 
 # Store images to google artifactory
 images:
