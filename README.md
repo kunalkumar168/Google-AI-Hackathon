@@ -6,3 +6,8 @@ But that's not all - we've taken it a step further. With built-in language trans
 Whether you're a traveler seeking information in a foreign land, a student researching diverse topics, or a professional collaborating with global teams, the Smart Media Question-Answer app empowers you to effortlessly interact with content in your preferred language.
 
 Experience the future of communication today with the Smart Image Question-Answer app. Say goodbye to language barriers and hello to seamless, cross-cultural understanding.
+
+## Installation and Setup in Local :
+```
+bash setup.bash
+```

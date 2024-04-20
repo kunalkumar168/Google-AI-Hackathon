@@ -79,8 +79,9 @@ class MyApp():
             try:
                 image_name = self.upload_image_to_gcs(image_file)
                 image_bkt_path = f"gs://{self.BUCKET_NAME}/{image_name}"
-                image = Part.from_uri(image_bkt_path, mime_type=_FORMAT_TO_MIME_TYPE[file_extension[1:]])
-                self.image_path = f"https://storage.googleapis.com/{self.BUCKET_NAME}/{image_name}"
+                mime_type = _FORMAT_TO_MIME_TYPE[file_extension[1:]]
+                image = Part.from_uri(image_bkt_path, mime_type=mime_type)
+                self.image_path = f"https://storage.googleapis.com/{self.BUCKET_NAME}/{image_name}.{mime_type}"
 
                 responses = self.model.generate_content(
                     [f"{prompt}", image],
