@@ -15,7 +15,16 @@
             <!-- Image Column -->
             <div class="col-md-6 mb-3">
                 <h4>Uploaded Media:</h4>
-                <img src="{{ session.get('image_path') }}" class="img-fluid" alt="Uploaded Image">
+                {% if session.get('image_path').endswith(('.jpg', '.jpeg', '.png', '.gif')) %}
+                    <img src="{{ session.get('image_path') }}" class="img-fluid" alt="Uploaded Image">
+                {% elif session.get('image_path').endswith('.mp4') %}
+                    <video controls class="img-fluid">
+                        <source src="{{ session.get('image_path') }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% else %}
+                    <p>Unsupported media type</p>
+                {% endif %}
             </div>
         </div>
         <!-- Language Selection Form -->
