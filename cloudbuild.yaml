@@ -1,0 +1,13 @@
+# Generate this file content for my project.
+steps:
+  # Docker Build
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/fair-gradient-419306/gemini-app/my-app:${SHORT_SHA}', '.']
+
+  # Push Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '-t', 'us-central1-docker.pkg.dev/fair-gradient-419306/gemini-app/my-app:${SHORT_SHA}']
+
+# Store images to google artifactory
+images:
+  - 'us-central1-docker.pkg.dev/fair-gradient-419306/gemini-app/my-app:${SHORT_SHA}'
