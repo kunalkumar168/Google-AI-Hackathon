@@ -48,7 +48,7 @@ class MyApp():
         self.generated_text = ""
 
     # Upload image to GCS bucket
-    def upload_image_to_gcs(self, image_file):
+    def upload_image_to_gcs(self, image_file, mime_type='image/jpeg'):
         bucket = client.bucket(self.BUCKET_NAME)
         filename = image_file.filename
         blob = bucket.blob(filename)
@@ -56,6 +56,7 @@ class MyApp():
             image_file.read(),
             content_type=image_file.content_type
         )
+        filename = str(filename).split('.')[0] + '.' + str(mime_type).split('/')[1]
         return filename
 
     def language_translation(self, text, target_language):
@@ -77,11 +78,11 @@ class MyApp():
             image_file = request.files['image']
             file_extension = os.path.splitext(image_file.filename)[1].lower()
             try:
-                image_name = self.upload_image_to_gcs(image_file)
-                image_bkt_path = f"gs://{self.BUCKET_NAME}/{image_name}"
                 mime_type = _FORMAT_TO_MIME_TYPE[file_extension[1:]]
+                image_name = self.upload_image_to_gcs(image_file, mime_type)
+                image_bkt_path = f"gs://{self.BUCKET_NAME}/{image_name}"
                 image = Part.from_uri(image_bkt_path, mime_type=mime_type)
-                self.image_path = f"https://storage.googleapis.com/{self.BUCKET_NAME}/{image_name}.{mime_type}"
+                self.image_path = f"https://storage.googleapis.com/{self.BUCKET_NAME}/{image_name}"
 
                 responses = self.model.generate_content(
                     [f"{prompt}", image],
@@ -122,4 +123,5 @@ def generate():
 
 
 if __name__ == '__main__':
-    app.run(port=int(os.environ.get("PORT", 8080)),host='0.0.0.0',debug=True)
+    #app.run(port=int(os.environ.get("PORT", 8080)),host='0.0.0.0',debug=True)
+    app.run(debug=True)
