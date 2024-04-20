@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, session, redirect, url_for
-import base64
 import os
 import vertexai
+import markdown2
 from vertexai.generative_models import GenerativeModel, Part
 import vertexai.preview.generative_models as generative_models
 from google.cloud import storage
@@ -18,6 +18,15 @@ client = storage.Client()
 
 # Initialize Vertex AI
 vertexai.init(project="fair-gradient-419306", location="us-west4")
+
+# mime type 
+_FORMAT_TO_MIME_TYPE = {
+    "png": "image/png",
+    "jpeg": "image/jpeg",
+    "jpg": "image/jpeg",
+    "gif": "image/gif",
+    "mp4": "video/mp4",
+}
 
 class MyApp():
     def __init__(self):
@@ -66,10 +75,11 @@ class MyApp():
         if request.method == 'POST':
             prompt = request.form['prompt']
             image_file = request.files['image']
+            file_extension = os.path.splitext(image_file.filename)[1].lower()
             try:
                 image_name = self.upload_image_to_gcs(image_file)
                 image_bkt_path = f"gs://{self.BUCKET_NAME}/{image_name}"
-                image = Part.from_uri(image_bkt_path, mime_type="image/jpeg")
+                image = Part.from_uri(image_bkt_path, mime_type=_FORMAT_TO_MIME_TYPE[file_extension[1:]])
                 self.image_path = f"https://storage.googleapis.com/{self.BUCKET_NAME}/{image_name}"
 
                 responses = self.model.generate_content(
@@ -81,7 +91,7 @@ class MyApp():
                 self.generated_text = ""
                 for response in responses:
                     self.generated_text += response.text
-                session['generated_text'] = self.generated_text
+                session['generated_text'] = markdown2.markdown(self.generated_text)
                 session['image_path'] = self.image_path
                 return render_template('result.html', error=None)
             except Exception as e:
@@ -92,7 +102,7 @@ class MyApp():
                 language = request.args.get('language')
                 if language:
                     self.generated_text = self.language_translation(self.generated_text, language)
-                    session['generated_text'] = self.generated_text
+                    session['generated_text'] = markdown2.markdown(self.generated_text)
                     return render_template('result.html', error=None)
                 return redirect(url_for('index'))
             except Exception as e:
@@ -111,4 +121,5 @@ def generate():
 
 
 if __name__ == '__main__':
-    app.run(port=int(os.environ.get("PORT", 8080)),host='0.0.0.0',debug=True)
+    #app.run(port=int(os.environ.get("PORT", 8080)),host='0.0.0.0',debug=True)
+    app.run(debug=True)

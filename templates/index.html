@@ -11,8 +11,8 @@
                     <img src="https://storage.googleapis.com/kunal_bucket_hckthn/google_ai.png" alt="Google AI Hackathon Image" class="img-fluid mb-4">
                 </div>
                 <div class="lead fs-3 font-monospace mt-4 col-8">
-                    <p>Created an Image Question-Answer app using Gemini Multimodal API. The user can upload an image and provide their query as a prmpt. Additionally, the user can also use the Machine Translation feature to translate the result in their desired language.</p>
-                </div>
+                    <p style="text-align: center;">Created an AI-powered Media Question-Answer app using Gemini Multimodal API. The user can upload an image or video and provide their query as a prompt. Additionally, the user can also use the Machine Translation feature to translate the result into their desired language.</p>
+                </div>                
                 <!-- Footer-->
                 <div class="align-self-end w-100">
                     {% include 'core/footer.html' %}
@@ -21,14 +21,14 @@
 
             <!-- Left panel - Login Form -->
             <div class="col-md-6 order-md-1 d-flex flex-column justify-content-center align-items-center p-4" style="min-height: 100vh; height: 100%;">
-                <h2 class="text-center display-3 fw-bold pb-3" style="font-size: 2rem;">Smart Image QA App</h2>
+                <h2 class="text-center display-3 fw-bold pb-3" style="font-size: 2rem;">Smart Media QA App</h2>
                 {% if message %}
                 <p class="text-danger">{{ message }}</p>
                 {% endif %}
                 <form action="{{ url_for('generate') }}" method="post" enctype="multipart/form-data">
                     <div class="row mb-4">
                         <div class="col-sm-4">
-                            <label for="prompt" class="form-label"><strong>Prompt:</strong></label>
+                            <label for="prompt" class="form-label"><strong>Question:</strong></label>
                         </div>
                         <div class="col-sm-8">
                             <textarea class="form-control" id="prompt" name="prompt" style="font-size: 18px; width: 100%;" rows="3"></textarea>
@@ -36,20 +36,23 @@
                     </div>
                     <div class="row mb-4">
                         <div class="col-sm-4">
-                            <label for="image" class="form-label"><strong>Upload Image:</strong></label>
+                            <label for="image" class="form-label"><strong>Upload Media:</strong></label>
                         </div>
                         <div class="col-sm-8">
                             <input class="form-control" type="file" id="image" name="image" style="padding: 10px 14px;">
                         </div>
-                    </div>
-                    <div class="row mb-4">
+                        <div class="col-sm-8 offset-sm-4">
+                            <small class="text-muted"><em>Accepted formats: .jpg, .jpeg, .gif, .png, .mp4</em></small>
+                        </div>
+                    </div>                 
+                    <div class="row mb-2">
                         <div class="col-sm-4"></div> <!-- Placeholder column -->
                         <div class="col-sm-8 text-sm-end">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>
-                <p class="text-muted pt-4 text-center">Please upload an image and provide a prompt.</p>
+                <p class="text-muted pt-4 text-center">Please upload a media and provide a prompt.</p>
                 <!-- {% if error %}
                     <p class="error"><strong>Error:</strong> {{ error }}
                 {% endif %} -->
