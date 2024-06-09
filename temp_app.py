@@ -11,7 +11,7 @@ client = storage.Client()
 BUCKET_NAME = 'kunal_bucket_hckthn'
 
 # Initialize Vertex AI
-vertexai.init(project="fair-gradient-419306", location="us-east1")
+vertexai.init(project="project-id", location="location-name") #Put your own Project ID
 
 # Load Generative Model
 #model = GenerativeModel("gemini-1.0-pro-vision-001")
